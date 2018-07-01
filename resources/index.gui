@@ -1,0 +1,4 @@
+<svg class="background">
+  <image id="pusheen" x="10" y="-15" width="280" height="280" href="frame1.png" load="sync" />
+  <text id="myLabel" />
+</svg>
