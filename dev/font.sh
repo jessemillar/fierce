@@ -3,7 +3,7 @@
 FONT=$1
 FILL=$2
 SIZE=$3
-SUFFIX=$4
+PREFIX=$4
 
 METAFILE="font-data.json"
 
@@ -13,55 +13,55 @@ echo '{' > $METAFILE
 
 for i in ${CHARACTERS[@]}; do
 	CHAR=$i
-	PREFIX=$i
+	SUFFIX=$i
 
-	if [[ $PREFIX == ":" ]]
+	if [[ $SUFFIX == ":" ]]
 	then
-		PREFIX="colon"
-	elif [[ $PREFIX == "-" ]]
+		SUFFIX="colon"
+	elif [[ $SUFFIX == "-" ]]
 	then
-		PREFIX="dash"
-	elif [[ $PREFIX == "0" ]]
+		SUFFIX="dash"
+	elif [[ $SUFFIX == "0" ]]
 	then
-		PREFIX="zero"
-	elif [[ $PREFIX == "1" ]]
+		SUFFIX="zero"
+	elif [[ $SUFFIX == "1" ]]
 	then
-		PREFIX="one"
-	elif [[ $PREFIX == "2" ]]
+		SUFFIX="one"
+	elif [[ $SUFFIX == "2" ]]
 	then
-		PREFIX="two"
-	elif [[ $PREFIX == "3" ]]
+		SUFFIX="two"
+	elif [[ $SUFFIX == "3" ]]
 	then
-		PREFIX="three"
-	elif [[ $PREFIX == "4" ]]
+		SUFFIX="three"
+	elif [[ $SUFFIX == "4" ]]
 	then
-		PREFIX="four"
-	elif [[ $PREFIX == "5" ]]
+		SUFFIX="four"
+	elif [[ $SUFFIX == "5" ]]
 	then
-		PREFIX="five"
-	elif [[ $PREFIX == "6" ]]
+		SUFFIX="five"
+	elif [[ $SUFFIX == "6" ]]
 	then
-		PREFIX="six"
-	elif [[ $PREFIX == "7" ]]
+		SUFFIX="six"
+	elif [[ $SUFFIX == "7" ]]
 	then
-		PREFIX="seven"
-	elif [[ $PREFIX == "8" ]]
+		SUFFIX="seven"
+	elif [[ $SUFFIX == "8" ]]
 	then
-		PREFIX="eight"
-	elif [[ $PREFIX == "9" ]]
+		SUFFIX="eight"
+	elif [[ $SUFFIX == "9" ]]
 	then
-		PREFIX="nine"
+		SUFFIX="nine"
 	fi
 
 	FILENAME=$PREFIX$SUFFIX.png
 
 	convert -font $FONT -fill $FILL -pointsize $SIZE -transparent white label:$CHAR $FILENAME
 
-	echo -n '"'$PREFIX'": {"width": ' >> $METAFILE
+	echo -n '"'$SUFFIX'": {"width": ' >> $METAFILE
 	convert $FILENAME -ping -format "%w" info: | xargs echo -n >> $METAFILE
 	echo -n ', "height": ' >> $METAFILE
 	convert $FILENAME -ping -format "%h" info: | xargs echo -n >> $METAFILE
-	echo "}," >> $METAFILE
+	echo -n ', "href": "'$FILENAME'"},' >> $METAFILE
 done
 
 sed '$ s/.$//' $METAFILE | tee $METAFILE

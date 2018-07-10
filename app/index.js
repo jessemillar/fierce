@@ -11,7 +11,7 @@ const pusheen = document.getElementById("pusheen");
 const frameCount = 4;
 let curFrame = 1;
 
-let timeDigits = ["time1", "time2", "time3", "time4", "time5", "time6"];
+let timeDigits = [document.getElementById("time1"), document.getElementById("time2"), document.getElementById("time3"), document.getElementById("time4"), document.getElementById("time5"), document.getElementById("time6")];
 
 // The animation loop
 setInterval(function(){ 
@@ -23,7 +23,7 @@ setInterval(function(){
   
   pusheen.href = "frame" + curFrame + ".png";
   
-  font.print(10, 10, "123", timeDigits);
+  font.print(10, 10, "12332", timeDigits);
 }, 150);
 
 // Update the <text> element every tick with the current time
