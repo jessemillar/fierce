@@ -1,0 +1,23 @@
+{"characters": {
+"0": {"width": 15, "height": 34},
+"1": {"width": 9, "height": 34},
+"2": {"width": 14, "height": 34},
+"3": {"width": 14, "height": 34},
+"4": {"width": 16, "height": 34},
+"5": {"width": 14, "height": 34},
+"6": {"width": 14, "height": 34},
+"7": {"width": 14, "height": 34},
+"8": {"width": 14, "height": 34},
+"9": {"width": 14, "height": 34},
+":": {"width": 5, "height": 34},
+"-": {"width": 9, "height": 34},
+"pm": {"width": 30, "height": 34},
+"am": {"width": 29, "height": 34},
+"Mon": {"width": 41, "height": 34},
+"Tue": {"width": 33, "height": 34},
+"Wed": {"width": 43, "height": 34},
+"Thu": {"width": 33, "height": 34},
+"Fri": {"width": 25, "height": 34},
+"Sat": {"width": 33, "height": 34},
+"Sun": {"width": 34, "height": 34}
+}}
