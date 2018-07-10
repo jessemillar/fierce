@@ -2,17 +2,18 @@ import clock from "clock";
 import document from "document";
 import { preferences } from "user-settings";
 import * as util from "../common/utils";
+import * as font from "../common/font";
 
 // Update the clock every minute
 clock.granularity = "minutes";
 
-// Get a handle on the <text> element
-const myLabel = document.getElementById("myLabel");
 const pusheen = document.getElementById("pusheen");
-
+const frameCount = 4;
 let curFrame = 1;
-let frameCount = 4;
 
+let timeDigits = ["time1", "time2", "time3", "time4", "time5", "time6"];
+
+// The animation loop
 setInterval(function(){ 
   if (curFrame < frameCount) {
     curFrame++;
@@ -20,7 +21,9 @@ setInterval(function(){
     curFrame = 1;
   }
   
-  pusheen.href = "frame" + curFrame + ".png"; 
+  pusheen.href = "frame" + curFrame + ".png";
+  
+  font.print(10, 10, "123", timeDigits);
 }, 150);
 
 // Update the <text> element every tick with the current time
@@ -35,5 +38,4 @@ clock.ontick = (evt) => {
     hours = util.zeroPad(hours);
   }
   let mins = util.zeroPad(today.getMinutes());
-  myLabel.text = `${hours}:${mins}`;
 }
