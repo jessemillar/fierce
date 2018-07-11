@@ -73,7 +73,7 @@ clock.ontick = (evt) => {
     // 24h format
     hours = util.zeroPad(hours);
   }
-    
-  print.font(150, 230, hours+":"+mins+" "+period, font, timeCharacters, "center");
-  print.font(150, 270, +month+"-"+day+" "+util.weekday(weekday).substring(0,3)+" "+steps, fontSmall, dateCharacters, "center");
+  
+  print.font(150, 216, hours+":"+mins+" "+period, font, timeCharacters, "center");
+  print.font(150, 269, +month+"-"+day+" "+util.weekday(weekday).substring(0,3)+" "+steps, fontSmall, dateCharacters, "center"); 
 }
