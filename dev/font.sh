@@ -4,16 +4,18 @@ FONT=$1
 FILL=$2
 SIZE=$3
 PREFIX=$4
+STYLE=$5
 
 METAFILE="font-data.json"
 
-CHARACTERS=(0 1 2 3 4 5 6 7 8 9 : - pm am Mon Tue Wed Thu Fri Sat Sun)
+CHARACTERS=(0 1 2 3 4 5 6 7 8 9 : - A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z)
 
 echo '{' > $METAFILE
 
 for i in ${CHARACTERS[@]}; do
 	CHAR=$i
 	SUFFIX=$i
+	MODIFIER=""
 
 	if [[ $SUFFIX == ":" ]]
 	then
@@ -51,11 +53,19 @@ for i in ${CHARACTERS[@]}; do
 	elif [[ $SUFFIX == "9" ]]
 	then
 		SUFFIX="nine"
+	elif [[ $SUFFIX =~ [A-Z] ]]
+	then
+		MODIFIER="upper-"
 	fi
 
-	FILENAME=$PREFIX$SUFFIX.png
+	FILENAME=$PREFIX$MODIFIER$SUFFIX.png
 
-	convert -font $FONT -fill $FILL -pointsize $SIZE -transparent white label:$CHAR $FILENAME
+	if [[ -z $STYLE ]]
+	then
+		convert -font $FONT -fill $FILL -pointsize $SIZE -transparent white label:$CHAR $FILENAME
+	else
+		convert -font $FONT -fill $FILL -pointsize $SIZE -style $STYLE -transparent white label:$CHAR $FILENAME
+	fi
 
 	echo -n '"'$SUFFIX'": {"width": ' >> $METAFILE
 	convert $FILENAME -ping -format "%w" info: | xargs echo -n >> $METAFILE
