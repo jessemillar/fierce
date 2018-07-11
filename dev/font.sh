@@ -5,6 +5,7 @@ FILL=$2
 SIZE=$3
 PREFIX=$4
 STYLE=$5
+STROKEWIDTH=$6
 
 METAFILE="font-data.json"
 
@@ -63,6 +64,8 @@ for i in ${CHARACTERS[@]}; do
 	if [[ -z $STYLE ]]
 	then
 		convert -font $FONT -fill $FILL -pointsize $SIZE -transparent white label:$CHAR $FILENAME
+	elif [[ $STYLE == "custombold" ]]
+		convert -font $FONT -fill $FILL -pointsize $SIZE -stroke $FILL -strokewidth $STROKEWIDTH -transparent white label:$CHAR $FILENAME
 	else
 		convert -font $FONT -fill $FILL -pointsize $SIZE -style $STYLE -transparent white label:$CHAR $FILENAME
 	fi
