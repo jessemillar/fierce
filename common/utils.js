@@ -11,3 +11,7 @@ export function weekday(i) {
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   return days[i];
 }
+
+export function random(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}

@@ -30,7 +30,7 @@ export function font(x, y, message, characters, elements, align = "left", space 
     }
   }
   
-  let currentElement = 0;
+  let curElement = 0;
   
   for (var i = 0; i < message.length; i++) {
     let char = translate(message[i]);
@@ -41,14 +41,14 @@ export function font(x, y, message, characters, elements, align = "left", space 
       continue;
     }
         
-    elements[currentElement].x = cursorX;
-    elements[currentElement].y = cursorY;
-    elements[currentElement].width = characters[char].width;
-    elements[currentElement].height = characters[char].height;
-    elements[currentElement].href = characters[char].href;
-    elements[currentElement].style.visibility = "visible";
+    elements[curElement].x = cursorX;
+    elements[curElement].y = cursorY;
+    elements[curElement].width = characters[char].width;
+    elements[curElement].height = characters[char].height;
+    elements[curElement].href = characters[char].href;
+    elements[curElement].style.visibility = "visible";
     
-    currentElement++;
+    curElement++;
     
     cursorX += characters[char].width + kerning;
   }

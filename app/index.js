@@ -2,7 +2,7 @@ import clock from "clock";
 import document from "document";
 import { preferences } from "user-settings";
 import { today } from "user-activity";
-import * as util from "../common/utils";
+import * as utils from "../common/utils";
 import * as font from "../resources/font-data.json";
 import * as fontSmall from "../resources/font-small-data.json";
 import * as print from "../common/print";
@@ -41,6 +41,20 @@ const dateCharacters = [
   document.getElementById("date14"),
 ];
 
+let curAnimation;
+const animations = [
+  "blanket",
+  "computer",
+  "cupid",
+  "detective",
+  "dino",
+  "fierce",
+  "hi",
+  "ice-cream",
+  "nap",
+  "pizza"
+];
+
 // The animation loop
 setInterval(function(){ 
   if (curFrame < frameCount) {
@@ -49,17 +63,19 @@ setInterval(function(){
     curFrame = 1;
   }
   
-  pusheen.href = "frame" + curFrame + ".png";
+  pusheen.href = "animations/"+curAnimation+"/frame"+curFrame+".png";
 }, 165);
 
 clock.ontick = (evt) => {
+  curAnimation = utils.random(animations);
+  
   let steps = today.adjusted.steps;
   let date = evt.date;
   let weekday = date.getDay();
   let month = date.getMonth();
   let day = date.getDate();
   let hours = date.getHours();
-  let mins = util.zeroPad(date.getMinutes());
+  let mins = utils.zeroPad(date.getMinutes());
 
   let period = "am";
   if (hours >= 12) {
@@ -71,9 +87,9 @@ clock.ontick = (evt) => {
     hours = hours % 12 || 12;
   } else {
     // 24h format
-    hours = util.zeroPad(hours);
+    hours = utils.zeroPad(hours);
   }
   
   print.font(150, 216, hours+":"+mins+" "+period, font, timeCharacters, "center");
-  print.font(150, 269, +month+"-"+day+" "+util.weekday(weekday).substring(0,3)+" "+steps, fontSmall, dateCharacters, "center"); 
+  print.font(150, 269, +month+"-"+day+" "+utils.weekday(weekday).substring(0,3)+" "+steps, fontSmall, dateCharacters, "center"); 
 }
