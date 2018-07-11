@@ -17,4 +17,10 @@
   <image id="date6" x="0" y="0" width="0" height="0" load="sync" />
   <image id="date7" x="0" y="0" width="0" height="0" load="sync" />
   <image id="date8" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date9" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date10" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date11" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date12" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date13" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date14" x="0" y="0" width="0" height="0" load="sync" />
 </svg>

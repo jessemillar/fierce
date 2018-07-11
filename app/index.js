@@ -1,6 +1,7 @@
 import clock from "clock";
 import document from "document";
 import { preferences } from "user-settings";
+import { today } from "user-activity";
 import * as util from "../common/utils";
 import * as font from "../resources/font-data.json";
 import * as fontSmall from "../resources/font-small-data.json";
@@ -31,7 +32,13 @@ let dateCharacters = [
   document.getElementById("date5"), 
   document.getElementById("date6"), 
   document.getElementById("date7"),
-  document.getElementById("date8")
+  document.getElementById("date8"),
+  document.getElementById("date9"),
+  document.getElementById("date10"),
+  document.getElementById("date11"),
+  document.getElementById("date12"),
+  document.getElementById("date13"),
+  document.getElementById("date14"),
 ];
 
 // The animation loop
@@ -43,15 +50,16 @@ setInterval(function(){
   }
   
   pusheen.href = "frame" + curFrame + ".png";
-}, 150);
+}, 165);
 
 clock.ontick = (evt) => {
-  let today = evt.date;
-  let weekday = today.getDay();
-  let month = today.getMonth();
-  let day = today.getDate();
-  let hours = today.getHours();
-  let mins = util.zeroPad(today.getMinutes());
+  let steps = today.adjusted.steps;
+  let date = evt.date;
+  let weekday = date.getDay();
+  let month = date.getMonth();
+  let day = date.getDate();
+  let hours = date.getHours();
+  let mins = util.zeroPad(date.getMinutes());
 
   let period = "am";
   if (hours >= 12) {
@@ -67,5 +75,5 @@ clock.ontick = (evt) => {
   }
     
   print.font(150, 230, hours+":"+mins+" "+period, font, timeCharacters, "center");
-  print.font(150, 270, util.weekday(weekday).substring(0,3)+" "+month+"-"+day, fontSmall, dateCharacters, "center");
+  print.font(150, 270, +month+"-"+day+" "+util.weekday(weekday).substring(0,3)+" "+steps, fontSmall, dateCharacters, "center");
 }
