@@ -5,4 +5,4 @@ I used the [APNGb](https://github.com/shgodoroja/APNGb) application to take iOS 
 
 I do not claim any copyright to Pusheen (which is why I'll never put this watch face on the Fitbit watch face catalog).
 
-![Preview](dev/screenshot.png)
+[![Preview](dev/screenshot.png)](https://gam.fitbit.com/gallery/clock/91297751-1492-4433-bcd0-4867274a60fd)
