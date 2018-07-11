@@ -7,4 +7,5 @@
   <image id="time4" x="0" y="0" width="0" height="0" load="sync" />
   <image id="time5" x="0" y="0" width="0" height="0" load="sync" />
   <image id="time6" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="time7" x="0" y="0" width="0" height="0" load="sync" />
 </svg>
