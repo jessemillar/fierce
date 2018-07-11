@@ -14,7 +14,7 @@ const pusheen = document.getElementById("pusheen");
 const frameCount = 4;
 let curFrame = 1;
 
-let timeCharacters = [
+const timeCharacters = [
   document.getElementById("time1"), 
   document.getElementById("time2"), 
   document.getElementById("time3"), 
@@ -24,7 +24,7 @@ let timeCharacters = [
   document.getElementById("time7")
 ];
 
-let dateCharacters = [
+const dateCharacters = [
   document.getElementById("date1"), 
   document.getElementById("date2"), 
   document.getElementById("date3"), 
