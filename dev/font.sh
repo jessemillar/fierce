@@ -65,6 +65,7 @@ for i in ${CHARACTERS[@]}; do
 	then
 		convert -font $FONT -fill $FILL -pointsize $SIZE -transparent white label:$CHAR $FILENAME
 	elif [[ $STYLE == "custombold" ]]
+	then
 		convert -font $FONT -fill $FILL -pointsize $SIZE -stroke $FILL -strokewidth $STROKEWIDTH -transparent white label:$CHAR $FILENAME
 	else
 		convert -font $FONT -fill $FILL -pointsize $SIZE -style $STYLE -transparent white label:$CHAR $FILENAME

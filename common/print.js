@@ -1,4 +1,4 @@
-export function print(x, y, message, characters, elements, align = "left") {
+export function font(x, y, message, characters, elements, align = "left", space = 10, kerning = 0) {
   let cursorX = x;
   let cursorY = y;
   
@@ -10,11 +10,19 @@ export function print(x, y, message, characters, elements, align = "left") {
   if (align != "left") {
     let width = 0;
     
+    // Calculate the overall width of the message
     for (var i = 0; i < message.length; i++) {
       let char = translate(message[i]);
-      width += characters[char].width;
+      
+      if (char == " ") {
+        width += space + kerning;
+        continue;
+      }
+      
+      width += characters[char].width + kerning;
     }
     
+    // Place the starting point of the cursor based on the width of the message
     if (align == "center") {
       cursorX -= width / 2;
     } else if (align == "right") {
@@ -22,20 +30,31 @@ export function print(x, y, message, characters, elements, align = "left") {
     }
   }
   
+  let currentElement = 0;
+  
   for (var i = 0; i < message.length; i++) {
     let char = translate(message[i]);
         
-    elements[i].x = cursorX;
-    elements[i].y = cursorY;
-    elements[i].width = characters[char].width;
-    elements[i].height = characters[char].height;
-    elements[i].href = characters[char].href;
-    elements[i].style.visibility = "visible";
+    // Handle spaces
+    if (char == " ") {
+      cursorX += space + kerning;
+      continue;
+    }
+        
+    elements[currentElement].x = cursorX;
+    elements[currentElement].y = cursorY;
+    elements[currentElement].width = characters[char].width;
+    elements[currentElement].height = characters[char].height;
+    elements[currentElement].href = characters[char].href;
+    elements[currentElement].style.visibility = "visible";
     
-    cursorX += characters[char].width;
+    currentElement++;
+    
+    cursorX += characters[char].width + kerning;
   }
 }
 
+// Translate special characters to filename-safe names
 function translate(character) {  
   switch(character) {
     case "0":

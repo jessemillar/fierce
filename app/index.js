@@ -2,8 +2,9 @@ import clock from "clock";
 import document from "document";
 import { preferences } from "user-settings";
 import * as util from "../common/utils";
-import * as characters from "../resources/font-data.json";
-import * as font from "../common/font";
+import * as font from "../resources/font-data.json";
+import * as fontSmall from "../resources/font-small-data.json";
+import * as print from "../common/print";
 
 // Update the clock every minute
 clock.granularity = "minutes";
@@ -12,7 +13,7 @@ const pusheen = document.getElementById("pusheen");
 const frameCount = 4;
 let curFrame = 1;
 
-let timeDigits = [
+let timeCharacters = [
   document.getElementById("time1"), 
   document.getElementById("time2"), 
   document.getElementById("time3"), 
@@ -20,6 +21,17 @@ let timeDigits = [
   document.getElementById("time5"), 
   document.getElementById("time6"), 
   document.getElementById("time7")
+];
+
+let dateCharacters = [
+  document.getElementById("date1"), 
+  document.getElementById("date2"), 
+  document.getElementById("date3"), 
+  document.getElementById("date4"), 
+  document.getElementById("date5"), 
+  document.getElementById("date6"), 
+  document.getElementById("date7"),
+  document.getElementById("date8")
 ];
 
 // The animation loop
@@ -35,11 +47,14 @@ setInterval(function(){
 
 clock.ontick = (evt) => {
   let today = evt.date;
+  let weekday = today.getDay();
+  let month = today.getMonth();
+  let day = today.getDate();
   let hours = today.getHours();
   let mins = util.zeroPad(today.getMinutes());
 
   let period = "am";
-  if (hours>=12) {
+  if (hours >= 12) {
     period = "pm";
   }
   
@@ -50,6 +65,7 @@ clock.ontick = (evt) => {
     // 24h format
     hours = util.zeroPad(hours);
   }
-  
-  font.print(150, 235, hours+":"+mins+period, characters, timeDigits, "center");
+    
+  print.font(150, 230, hours+":"+mins+" "+period, font, timeCharacters, "center");
+  print.font(150, 270, util.weekday(weekday).substring(0,3)+" "+month+"-"+day, fontSmall, dateCharacters, "center");
 }

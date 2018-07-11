@@ -1,5 +1,5 @@
 <svg class="background">
-  <image id="pusheen" x="10" y="-15" width="280" height="280" href="frame1.png" load="sync" />
+  <image id="pusheen" x="10" y="-20" width="280" height="280" href="frame1.png" load="sync" />
   
   <image id="time1" x="0" y="0" width="0" height="0" load="sync" />
   <image id="time2" x="0" y="0" width="0" height="0" load="sync" />
@@ -8,4 +8,13 @@
   <image id="time5" x="0" y="0" width="0" height="0" load="sync" />
   <image id="time6" x="0" y="0" width="0" height="0" load="sync" />
   <image id="time7" x="0" y="0" width="0" height="0" load="sync" />
+  
+  <image id="date1" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date2" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date3" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date4" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date5" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date6" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date7" x="0" y="0" width="0" height="0" load="sync" />
+  <image id="date8" x="0" y="0" width="0" height="0" load="sync" />
 </svg>
