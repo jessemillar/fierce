@@ -3,8 +3,8 @@ import document from "document";
 import { preferences } from "user-settings";
 import { today } from "user-activity";
 import * as utils from "../common/utils";
-import * as font from "../resources/font-data.json";
-import * as fontSmall from "../resources/font-small-data.json";
+import * as fontPlease from "../resources/fonts/please/please-data.json";
+import * as fontPleaseSmall from "../resources/fonts/please-small/please-small-data.json";
 import * as print from "../common/print";
 
 // Update the clock every minute
@@ -90,6 +90,6 @@ clock.ontick = (evt) => {
     hours = utils.zeroPad(hours);
   }
   
-  print.font(150, 216, hours+":"+mins+" "+period, font, timeCharacters, "center");
-  print.font(150, 269, +month+"-"+day+" "+utils.weekday(weekday).substring(0,3)+" "+steps, fontSmall, dateCharacters, "center"); 
+  print.font(150, 216, hours+":"+mins+" "+period, fontPlease, timeCharacters, "center");
+  print.font(150, 269, +month+"-"+day+" "+utils.weekday(weekday).substring(0,3)+" "+steps, fontPleaseSmall, dateCharacters, "center"); 
 }

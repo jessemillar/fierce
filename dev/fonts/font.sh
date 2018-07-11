@@ -75,7 +75,7 @@ for i in ${CHARACTERS[@]}; do
 	convert $FILENAME -ping -format "%w" info: | xargs echo -n >> $METAFILE
 	echo -n ', "height": ' >> $METAFILE
 	convert $FILENAME -ping -format "%h" info: | xargs echo -n >> $METAFILE
-	echo -n ', "href": "'$FILENAME'"},' >> $METAFILE
+	echo -n ', "href": "'${PWD##*/}'/'$FILENAME'"},' >> $METAFILE
 done
 
 sed '$ s/.$//' $METAFILE | tee $METAFILE
