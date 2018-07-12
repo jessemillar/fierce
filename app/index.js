@@ -2,6 +2,7 @@ import clock from "clock";
 import document from "document";
 import { preferences } from "user-settings";
 import { today } from "user-activity";
+import { display } from "display";
 import * as utils from "../common/utils";
 import * as fontPlease from "../resources/fonts/please/please-data.json";
 import * as fontPleaseSmall from "../resources/fonts/please-small/please-small-data.json";
@@ -41,7 +42,6 @@ const dateCharacters = [
   document.getElementById("date14"),
 ];
 
-let curAnimation;
 const animations = [
   "blanket",
   "computer",
@@ -49,14 +49,15 @@ const animations = [
   "detective",
   "dino",
   "fierce",
-  "hi",
   "ice-cream",
   "nap",
+  "shades",
   "pizza"
 ];
+let curAnimation = utils.random(animations);
 
 // The animation loop
-setInterval(function(){ 
+setInterval(function(){
   if (curFrame < frameCount) {
     curFrame++;
   } else {
@@ -66,9 +67,14 @@ setInterval(function(){
   pusheen.href = "animations/"+curAnimation+"/frame"+curFrame+".png";
 }, 165);
 
+// Change the animation when you look away
+display.addEventListener("change", function() {
+  if (!display.on) {
+    curAnimation = utils.random(animations);
+  }
+});
+
 clock.ontick = (evt) => {
-  curAnimation = utils.random(animations);
-  
   let steps = today.adjusted.steps;
   let date = evt.date;
   let weekday = date.getDay();
