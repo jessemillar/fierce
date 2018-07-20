@@ -12,6 +12,16 @@ export function weekday(i) {
   return days[i];
 }
 
+export function isDay() {
+  let hour = new Date().getHours();
+  
+  if (hour >= 6 && hour <= 20) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export function random(array) {
   return array[Math.floor(Math.random() * array.length)];
 }

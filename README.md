@@ -9,6 +9,13 @@ I do not claim any copyright to Pusheen (which is why I'll never put this watch 
 
 ### Development
 ```
-../font.sh ../Please.ttf "#4e2c11" 48 please- custombold 2
-../font.sh ../Please.ttf "#4e2c11" 24 please-small- custombold 1
+cd dev/fonts/please/dark
+../../font.sh ../../Please.ttf "#4e2c11" 48 please- custombold 2
+cd ../light
+../../font.sh ../../Please.ttf "#b5a89c" 48 please- custombold 2
+cd ../../please-small/dark
+../../font.sh ../../Please.ttf "#4e2c11" 24 please-small- custombold 1
+cd ../light
+../../font.sh ../../Please.ttf "#b5a89c" 24 please-small- custombold 1
+cd ../../../../
 ```

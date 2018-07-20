@@ -63,19 +63,19 @@ for i in ${CHARACTERS[@]}; do
 
 	if [[ -z $STYLE ]]
 	then
-		convert -font $FONT -fill $FILL -pointsize $SIZE -transparent white label:$CHAR $FILENAME
+		convert -font $FONT -fill $FILL -pointsize $SIZE -background transparent label:$CHAR $FILENAME
 	elif [[ $STYLE == "custombold" ]]
 	then
-		convert -font $FONT -fill $FILL -pointsize $SIZE -stroke $FILL -strokewidth $STROKEWIDTH -transparent white label:$CHAR $FILENAME
+		convert -font $FONT -fill $FILL -pointsize $SIZE -stroke $FILL -strokewidth $STROKEWIDTH -background transparent label:$CHAR $FILENAME
 	else
-		convert -font $FONT -fill $FILL -pointsize $SIZE -style $STYLE -transparent white label:$CHAR $FILENAME
+		convert -font $FONT -fill $FILL -pointsize $SIZE -style $STYLE -background transparent label:$CHAR $FILENAME
 	fi
 
 	echo -n '"'$SUFFIX'": {"width": ' >> $METAFILE
 	convert $FILENAME -ping -format "%w" info: | xargs echo -n >> $METAFILE
 	echo -n ', "height": ' >> $METAFILE
 	convert $FILENAME -ping -format "%h" info: | xargs echo -n >> $METAFILE
-	echo -n ', "href": "'${PWD##*/}'/'$FILENAME'"},' >> $METAFILE
+	echo -n ', "href": "'${PWD#"${PWD%/*/*}/"}'/'$FILENAME'"},' >> $METAFILE
 done
 
 sed '$ s/.$//' $METAFILE | tee $METAFILE

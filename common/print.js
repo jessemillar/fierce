@@ -13,7 +13,7 @@ export function font(x, y, message, characters, elements, align = "left", space 
     // Calculate the overall width of the message
     for (var i = 0; i < message.length; i++) {
       let char = translate(message[i]);
-      
+            
       if (char == " ") {
         width += space + kerning;
         continue;
@@ -40,7 +40,7 @@ export function font(x, y, message, characters, elements, align = "left", space 
       cursorX += space + kerning;
       continue;
     }
-        
+                    
     elements[curElement].x = cursorX;
     elements[curElement].y = cursorY;
     elements[curElement].width = characters[char].width;

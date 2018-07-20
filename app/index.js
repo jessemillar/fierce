@@ -4,12 +4,17 @@ import { preferences } from "user-settings";
 import { today } from "user-activity";
 import { display } from "display";
 import * as utils from "../common/utils";
-import * as fontPlease from "../resources/fonts/please/please-data.json";
-import * as fontPleaseSmall from "../resources/fonts/please-small/please-small-data.json";
+import * as fontDarkPlease from "../resources/fonts/please/dark/please-data.json";
+import * as fontLightPlease from "../resources/fonts/please/light/please-data.json";
+import * as fontDarkPleaseSmall from "../resources/fonts/please-small/dark/please-small-data.json";
+import * as fontLightPleaseSmall from "../resources/fonts/please-small/light/please-small-data.json";
 import * as print from "../common/print";
 
 // Update the clock every minute
 clock.granularity = "minutes";
+
+let dayColor = "#fdf1e6";
+let nightColor = "#000000";
 
 const pusheen = document.getElementById("pusheen");
 const frameCount = 4;
@@ -42,19 +47,54 @@ const dateCharacters = [
   document.getElementById("date14"),
 ];
 
-const animations = [
-  "blanket",
+const dayAnimations = [
   "computer",
   "cupid",
   "detective",
   "dino",
   "fierce",
   "ice-cream",
-  "nap",
   "shades",
   "pizza"
 ];
-let curAnimation = utils.random(animations);
+
+const nightAnimations = [
+  "blanket",
+  "nap"
+];
+
+clock.ontick = (evt) => {
+  let steps = today.adjusted.steps;
+  let date = evt.date;
+  let weekday = date.getDay();
+  let month = date.getMonth();
+  let day = date.getDate();
+  let hour = date.getHours();
+  let mins = utils.zeroPad(date.getMinutes());
+  
+  let font = (utils.isDay()) ? fontDarkPlease : fontLightPlease;
+  let fontSmall = (utils.isDay()) ? fontDarkPleaseSmall : fontLightPleaseSmall;
+
+  let period = "am";
+  if (hour >= 12) {
+    period = "pm";
+  }
+  
+  if (preferences.clockDisplay === "12h") {
+    // 12h format
+    hour = hour % 12 || 12;
+  } else {
+    // 24h format
+    hour = utils.zeroPad(hour);
+  }
+    
+  print.font(150, 216, hour+":"+mins+" "+period, font, timeCharacters, "center");
+  print.font(150, 269, +month+"-"+day+" "+utils.weekday(weekday).substring(0,3)+" "+steps, fontSmall, dateCharacters, "center");
+}
+
+// Initial setup
+document.getElementById("background").style.fill = (utils.isDay()) ? dayColor : nightColor;
+let curAnimation = utils.random((utils.isDay()) ? dayAnimations : nightAnimations);
 
 // The animation loop
 setInterval(function(){
@@ -70,32 +110,7 @@ setInterval(function(){
 // Change the animation when you look away
 display.addEventListener("change", function() {
   if (!display.on) {
-    curAnimation = utils.random(animations);
+    document.getElementById("background").style.fill = (utils.isDay()) ? dayColor : nightColor;
+    curAnimation = utils.random((utils.isDay()) ? dayAnimations : nightAnimations);
   }
 });
-
-clock.ontick = (evt) => {
-  let steps = today.adjusted.steps;
-  let date = evt.date;
-  let weekday = date.getDay();
-  let month = date.getMonth();
-  let day = date.getDate();
-  let hours = date.getHours();
-  let mins = utils.zeroPad(date.getMinutes());
-
-  let period = "am";
-  if (hours >= 12) {
-    period = "pm";
-  }
-  
-  if (preferences.clockDisplay === "12h") {
-    // 12h format
-    hours = hours % 12 || 12;
-  } else {
-    // 24h format
-    hours = utils.zeroPad(hours);
-  }
-  
-  print.font(150, 216, hours+":"+mins+" "+period, fontPlease, timeCharacters, "center");
-  print.font(150, 269, +month+"-"+day+" "+utils.weekday(weekday).substring(0,3)+" "+steps, fontPleaseSmall, dateCharacters, "center"); 
-}
