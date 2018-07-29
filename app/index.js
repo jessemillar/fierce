@@ -63,17 +63,31 @@ const nightAnimations = [
   "nap"
 ];
 
+// Initial setup
+document.getElementById("background").style.fill = (utils.isDay()) ? dayColor : nightColor;
+let curAnimation = utils.random((utils.isDay()) ? dayAnimations : nightAnimations);
+let font = (utils.isDay()) ? fontDarkPlease : fontLightPlease;
+let fontSmall = (utils.isDay()) ? fontDarkPleaseSmall : fontLightPleaseSmall;
+
+// The animation loop
+setInterval(function(){
+  if (curFrame < frameCount) {
+    curFrame++;
+  } else {
+    curFrame = 1;
+  }
+  
+  pusheen.href = "animations/"+curAnimation+"/frame"+curFrame+".png";
+}, 165);
+
 clock.ontick = (evt) => {
   let steps = today.adjusted.steps;
   let date = evt.date;
   let weekday = date.getDay();
-  let month = date.getMonth();
+  let month = date.getMonth() + 1;
   let day = date.getDate();
   let hour = date.getHours();
   let mins = utils.zeroPad(date.getMinutes());
-  
-  let font = (utils.isDay()) ? fontDarkPlease : fontLightPlease;
-  let fontSmall = (utils.isDay()) ? fontDarkPleaseSmall : fontLightPleaseSmall;
 
   let period = "am";
   if (hour >= 12) {
@@ -89,28 +103,15 @@ clock.ontick = (evt) => {
   }
     
   print.font(150, 216, hour+":"+mins+" "+period, font, timeCharacters, "center");
-  print.font(150, 269, +month+"-"+day+" "+utils.weekday(weekday).substring(0,3)+" "+steps, fontSmall, dateCharacters, "center");
+  print.font(150, 269, month+"-"+day+" "+utils.weekday(weekday).substring(0,3)+" "+steps, fontSmall, dateCharacters, "center");
 }
-
-// Initial setup
-document.getElementById("background").style.fill = (utils.isDay()) ? dayColor : nightColor;
-let curAnimation = utils.random((utils.isDay()) ? dayAnimations : nightAnimations);
-
-// The animation loop
-setInterval(function(){
-  if (curFrame < frameCount) {
-    curFrame++;
-  } else {
-    curFrame = 1;
-  }
-  
-  pusheen.href = "animations/"+curAnimation+"/frame"+curFrame+".png";
-}, 165);
 
 // Change the animation when you look away
 display.addEventListener("change", function() {
   if (!display.on) {
     document.getElementById("background").style.fill = (utils.isDay()) ? dayColor : nightColor;
     curAnimation = utils.random((utils.isDay()) ? dayAnimations : nightAnimations);
+    font = (utils.isDay()) ? fontDarkPlease : fontLightPlease;
+    fontSmall = (utils.isDay()) ? fontDarkPleaseSmall : fontLightPleaseSmall;
   }
 });
