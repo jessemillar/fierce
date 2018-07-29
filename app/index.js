@@ -16,6 +16,7 @@ clock.granularity = "minutes";
 let dayColor = "#fdf1e6";
 let nightColor = "#000000";
 
+let status = "clock";
 const pusheen = document.getElementById("pusheen");
 const frameCount = 4;
 let curFrame = 1;
@@ -50,7 +51,6 @@ const dateCharacters = [
 const dayAnimations = [
   "computer",
   "cupid",
-  "detective",
   "dino",
   "fierce",
   "ice-cream",
@@ -68,6 +68,12 @@ document.getElementById("background").style.fill = (utils.isDay()) ? dayColor : 
 let curAnimation = utils.random((utils.isDay()) ? dayAnimations : nightAnimations);
 let font = (utils.isDay()) ? fontDarkPlease : fontLightPlease;
 let fontSmall = (utils.isDay()) ? fontDarkPleaseSmall : fontLightPleaseSmall;
+
+// Ask Pusheen functionality
+pusheen.addEventListener("click", function() {
+  status = "ask";
+  curAnimation = "detective";
+});
 
 // The animation loop
 setInterval(function(){
@@ -109,8 +115,19 @@ clock.ontick = (evt) => {
 // Change the animation when you look away
 display.addEventListener("change", function() {
   if (!display.on) {
+    if (status == "ask") {
+      status = "clock";
+      
+      if (Math.random() >= 0.5) {
+        curAnimation = "yes";
+      } else {
+        curAnimation = "no";
+      }
+    } else {
+      curAnimation = utils.random((utils.isDay()) ? dayAnimations : nightAnimations);
+    }
+     
     document.getElementById("background").style.fill = (utils.isDay()) ? dayColor : nightColor;
-    curAnimation = utils.random((utils.isDay()) ? dayAnimations : nightAnimations);
     font = (utils.isDay()) ? fontDarkPlease : fontLightPlease;
     fontSmall = (utils.isDay()) ? fontDarkPleaseSmall : fontLightPleaseSmall;
   }
